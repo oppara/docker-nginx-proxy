@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  mailcatcher:
+    image: sj26/mailcatcher
+    container_name: mailcatcher_smtp
+    ports:
+      - 1025:1025
+      - 1080:1080
+
+networks:
+  default:
+    name: nginx-proxy

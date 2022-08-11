@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  try_mailcatcher:
+    build: ./
+    image: try_mailcatcher
+    container_name: try_mailcatcher
+    expose:
+      - 80
+    restart: always
+    environment:
+      VIRTUAL_HOST: foo.example.local
+    volumes:
+      - ./htdocs:/var/www/html
+
+networks:
+  default:
+    name: nginx-proxy
+    external: true
