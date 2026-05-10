@@ -1,0 +1,36 @@
+services:
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy:1.10
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./conf/server.conf:/etc/nginx/conf.d/server.conf
+      - ./certs:/etc/nginx/certs:ro
+
+  mailpit:
+    image: axllent/mailpit:v1.21.5
+    container_name: mailpit
+    restart: unless-stopped
+    ports:
+      - 1025:1025
+      - 8025:8025
+    volumes:
+      - mp-data-file:/data
+    environment:
+      TZ: Asia/Tokyo
+      MP_MAX_MESSAGES: 5000
+      MP_DATABASE: /data/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+
+volumes:
+  mp-data-file:
+
+networks:
+  default:
+    name: nginx-proxy
+    external: true

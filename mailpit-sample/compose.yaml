@@ -1,0 +1,17 @@
+services:
+  try_mailpit:
+    build: ./
+    image: try_mailpit
+    container_name: try_mailpit
+    expose:
+      - 80
+    restart: always
+    environment:
+      VIRTUAL_HOST: try-mailpit.dev.test
+    volumes:
+      - ./htdocs:/var/www/html
+
+networks:
+  default:
+    name: nginx-proxy
+    external: true
