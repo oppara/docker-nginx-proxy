@@ -1,7 +1,11 @@
 SHELL := /bin/bash
 
 DOCKER_NETWORK_NAME := nginx-proxy
-CERT_DOMAIN := *.dev.test
+CERT_NAME := dev.test
+CERT_DIR := ./certs
+CERT_DOMAIN := *.$(CERT_NAME)
+CERT_KEY := $(CERT_DIR)/$(CERT_NAME).key
+CERT_CRT := $(CERT_DIR)/$(CERT_NAME).crt
 
 All: help
 
@@ -31,7 +35,7 @@ cert: ## dev.test 用のローカル証明書を作成します。
 	if [ ! -f "$$CAROOT/rootCA.pem" ] || [ ! -f "$$CAROOT/rootCA-key.pem" ]; then \
 		mkcert -install; \
 	fi
-	@mkcert -key-file ./certs/dev.test.key -cert-file ./certs/dev.test.crt "$(CERT_DOMAIN)"
+	@mkcert -key-file "$(CERT_KEY)" -cert-file "$(CERT_CRT)" "$(CERT_NAME)" "$(CERT_DOMAIN)"
 
 .PHONY: help
 help: ## Display this help screen
