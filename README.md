@@ -24,8 +24,8 @@ For example, to access `https://hoge.dev.test`:
 ```shell
 % git clone git@github.com:oppara/docker-nginx-proxy.git
 % cd docker-nginx-proxy
-% make up
 % make cert # only for the initial setup
+% make up
 ```
 
 ### 2. Create `compose.yaml`

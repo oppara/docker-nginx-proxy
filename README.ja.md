@@ -22,8 +22,8 @@ https://hoge.dev.test でアクセスする場合。
 ```shell
 % git clone git@github.com:oppara/docker-nginx-proxy.git 
 % cd docker-nginx-proxy
-% make up
 % make cert # 初回セットアップ時のみ
+% make up
 ```
 
 ### 2. compose.yaml を書く
